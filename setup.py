@@ -1,29 +1,28 @@
-import setuptools
-
+from setuptools import setup,find_packages
+from pathlib import Path
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 
-__version__ = "0.1.0"
+h='-e .'
+def get_req(file_path:Path)->list:
+    r=[]
+    with open(file_path) as f:
+        r=f.readlines()
+        req=[re.replace("\n","") for re in r]
+    if h in req:
+        req.remove(h)
+    return req
 
-REPO_NAME = "Kidney-Disease-Classification-Deep-Learning-Project"
-AUTHOR_USER_NAME = "Ayush Kumar"
-SRC_REPO = "Disease_classification"
-AUTHOR_EMAIL = "ayushpripl@gmail.com"
+    
 
 
-setuptools.setup(
-    name=SRC_REPO,
-    version=__version__,
-    author=AUTHOR_USER_NAME,
-    author_email=AUTHOR_EMAIL,
-    description="A small python package for CNN app",
-    long_description=long_description,
-    long_description_content="text/markdown",
-    url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",
-    project_urls={
-        "Bug Tracker": f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}/issues",
-    },
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src")
+
+setup(
+name='Disease Prediction',
+version='0.0.1',
+author='Ayush',
+author_email='ayushpripl@gmail.com',
+packages=find_packages(),
+install_requires=get_req('requirements.txt')
 )
