@@ -6,6 +6,7 @@ import joblib
 import sys
 from sklearn.pipeline import Pipeline
 from src.Disease_classification.exception import CustomException
+from base import PredictionDataset
 
 # Assuming load_obj is defined elsewhere in src.Disease_classification.utils
 from src.Disease_classification.utils import load_obj
@@ -24,16 +25,7 @@ model_pipe = Pipeline(steps=[
 ])
 
 # Pydantic model for prediction input
-class PredictionDataset(BaseModel):
-    Disease: str
-    Fever: str
-    Cough: str
-    Fatigue: str
-    Difficulty_Breathing: str
-    Age: int
-    Gender: str
-    Blood_Pressure: str
-    Cholesterol_Level: str
+
 
 @app.get("/")
 def home():
