@@ -85,7 +85,7 @@ class DataTransformation:
             train_arr = np.c_[train_,  np.array(target_train)]
             test_arr = np.c_[test_,  np.array(target_test)]
 
-            pd.DataFrame(train_arr).to_csv('Hale1.csv')
+            # pd.DataFrame(train_arr).to_csv('Hale1.csv')
             save_object(self.data_trans_config.preprocessor_obj_file, preprocessor)
 
             return train_arr, test_arr, self.data_trans_config.preprocessor_obj_file
