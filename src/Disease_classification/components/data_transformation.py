@@ -30,10 +30,10 @@ class DataTransformation:
                 'Fever',
                 'Cough',
                 'Fatigue',
-                'Difficulty Breathing',
+                'Difficulty_Breathing',
                 'Gender',
-                'Blood Pressure',
-                'Cholesterol Level',
+                'Blood_Pressure',
+                'Cholesterol_Level',
             ]
 
             pipe1 = Pipeline(steps=[
@@ -84,10 +84,10 @@ class DataTransformation:
             # Concatenate the 'Disease' column back to the transformed data
             train_arr = np.c_[train_,  np.array(target_train)]
             test_arr = np.c_[test_,  np.array(target_test)]
-
+            # pd.DataFrame(train_arr).to_csv("nhipta.csv")
             # pd.DataFrame(train_arr).to_csv('Hale1.csv')
             save_object(self.data_trans_config.preprocessor_obj_file, preprocessor)
-
+            
             return train_arr, test_arr, self.data_trans_config.preprocessor_obj_file
 
         except Exception as e:
