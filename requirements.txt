@@ -3,4 +3,8 @@ numpy
 scikit-learn
 python-dotenv
 pymysql
+seaborn 
+matplotlib
+catboost
+
 -e .

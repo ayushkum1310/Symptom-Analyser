@@ -10,7 +10,7 @@ import pymysql
 
 import pickle
 import numpy as np
-
+import pickle
 
 load_dotenv()
 db=os.getenv('db')
@@ -35,3 +35,11 @@ def read_sql_data():
     except Exception as e:
         raise CustomException(e,sys)
     
+def save_object(file_path,obj):
+    try:
+        os.makedirs(os.path.dirname(file_path),exist_ok=True)
+        
+        with open(file_path,'wb') as file_obj:
+            pickle.dump(obj,file_obj)
+    except Exception as e:
+        raise CustomException(e,sys)
