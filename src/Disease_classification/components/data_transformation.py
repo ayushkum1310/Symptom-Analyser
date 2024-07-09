@@ -82,8 +82,8 @@ class DataTransformation:
             test_ = preprocessor.transform(input_test)
 
             # Concatenate the 'Disease' column back to the transformed data
-            train_arr = np.c_[input_train['Disease'].values.reshape(-1, 1),train_,  np.array(target_train)]
-            test_arr = np.c_[input_test['Disease'].values.reshape(-1, 1),test_,  np.array(target_test)]
+            train_arr = np.c_[train_,  np.array(target_train)]
+            test_arr = np.c_[test_,  np.array(target_test)]
 
             pd.DataFrame(train_arr).to_csv('Hale1.csv')
             save_object(self.data_trans_config.preprocessor_obj_file, preprocessor)
