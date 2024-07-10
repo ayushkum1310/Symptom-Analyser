@@ -17,6 +17,8 @@ from dataclasses import dataclass
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file = os.path.join('artifacts', 'preprocessor.pkl')
+    preprocessor_obj_file1 = os.path.join('artifacts', 'train_arr')
+    preprocessor_obj_file2 = os.path.join('artifacts', 'test_arr.csv')
 
 class DataTransformation:
     def __init__(self):
@@ -84,9 +86,10 @@ class DataTransformation:
             # Concatenate the 'Disease' column back to the transformed data
             train_arr = np.c_[train_,  np.array(target_train)]
             test_arr = np.c_[test_,  np.array(target_test)]
-            # pd.DataFrame(train_arr).to_csv("nhipta.csv")
+            
             # pd.DataFrame(train_arr).to_csv('Hale1.csv')
             save_object(self.data_trans_config.preprocessor_obj_file, preprocessor)
+            
             
             return train_arr, test_arr, self.data_trans_config.preprocessor_obj_file
 
@@ -95,11 +98,10 @@ class DataTransformation:
 
 # Example usage
 if __name__ == "__main__":
-    train_path = "train.csv"
-    test_path = "test.csv"
+    train_path = 'artifacts/train.csv'
+    test_path = 'artifacts/test.csv'
     data_transformer = DataTransformation()
-    train_arr, test_arr, preprocessor_file = data_transformer.initiate_data_transformation(train_path, test_path)
-    print("Train array:")
-    print(train_arr)
-    print("\nTest array:")
-    print(test_arr)
+    train_, test_, preprocessor_file = data_transformer.initiate_data_transformation(train_path, test_path)
+    np.save('artifacts/train_arr.npy',train_)
+    # mai hu khal nayak 
+    np.save("artifacts/test_arr.npy",test_)

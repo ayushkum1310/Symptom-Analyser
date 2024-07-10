@@ -1,0 +1,39 @@
+stages:
+  data_ingestion:
+    cmd: python src\Disease_classification\components\data_ingestion.py
+    deps:
+      - src\Disease_classification\components\data_ingestion.py
+      - src\Disease_classification\utils.py
+      - src\Disease_classification\logger.py
+      - src\Disease_classification\exception.py
+    outs:
+      - artifacts\raw.csv
+      - artifacts\train.csv
+      - artifacts\test.csv
+      - artifacts\Dise.jobllib
+
+
+  data_transformation:
+    cmd: python src\Disease_classification\components\data_transformation.py
+    deps:
+      - artifacts\train.csv
+      - artifacts\test.csv
+      - src\Disease_classification\utils.py
+      - src\Disease_classification\logger.py
+      - src\Disease_classification\exception.py
+    outs:
+      - artifacts\preprocessor.pkl
+      - artifacts\train_arr.npy
+      - artifacts\test_arr.npy
+      
+
+  model_training:
+    cmd: python src\Disease_classification\components\model_tranier.py
+    deps:
+      - artifacts\train_arr.npy
+      - artifacts\test_arr.npy
+      - src\Disease_classification\utils.py
+      - src\Disease_classification\logger.py
+      - src\Disease_classification\exception.py
+    outs:
+      - artifacts\model.pkl

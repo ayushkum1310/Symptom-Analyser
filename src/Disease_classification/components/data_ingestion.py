@@ -58,3 +58,5 @@ class DataIngestion:
         except Exception as e:
             raise CustomException(e,sys)
         
+if __name__=="__main__":
+    a,b=DataIngestion().initiate_data_ingestion()

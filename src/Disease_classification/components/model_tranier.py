@@ -124,3 +124,10 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e,sys)
+        
+if __name__=='__main__':
+    a=np.load('artifacts/train_arr.npy')
+    b=np.load('artifacts/test_arr.npy')
+    a=ModelTrainer().initiate_model_trainer(a,b)
+    
+    # # print(a)
