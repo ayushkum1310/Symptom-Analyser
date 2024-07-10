@@ -1,0 +1,102 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src\Disease_classification\components\data_ingestion.py
+    deps:
+    - path: src\Disease_classification\components\data_ingestion.py
+      hash: md5
+      md5: 8cbb502104d7ad3cba1a4ed4fa557195
+      size: 2395
+    - path: src\Disease_classification\exception.py
+      hash: md5
+      md5: 07061779f97913bda5296388b6cabb7e
+      size: 665
+    - path: src\Disease_classification\logger.py
+      hash: md5
+      md5: 0256c3a5a42db61cb899da51cddddf1f
+      size: 422
+    - path: src\Disease_classification\utils.py
+      hash: md5
+      md5: d783442e4e8aaefd9eda412a38313b42
+      size: 2316
+    outs:
+    - path: artifacts\Dise.jobllib
+      hash: md5
+      md5: 59ee69213adfe90948d3aac70ed4af50
+      size: 2945
+    - path: artifacts\raw.csv
+      hash: md5
+      md5: d2347fe8a559eae8b4d6476eaa471305
+      size: 16621
+    - path: artifacts\test.csv
+      hash: md5
+      md5: c27dcbac1625bdfbe1b296ea454d725a
+      size: 3454
+    - path: artifacts\train.csv
+      hash: md5
+      md5: 9e58479bd8f0562d2ceb713ddf9ddea8
+      size: 13278
+  data_transformation:
+    cmd: python src\Disease_classification\components\data_transformation.py
+    deps:
+    - path: artifacts\test.csv
+      hash: md5
+      md5: c27dcbac1625bdfbe1b296ea454d725a
+      size: 3454
+    - path: artifacts\train.csv
+      hash: md5
+      md5: 9e58479bd8f0562d2ceb713ddf9ddea8
+      size: 13278
+    - path: src\Disease_classification\exception.py
+      hash: md5
+      md5: 07061779f97913bda5296388b6cabb7e
+      size: 665
+    - path: src\Disease_classification\logger.py
+      hash: md5
+      md5: 0256c3a5a42db61cb899da51cddddf1f
+      size: 422
+    - path: src\Disease_classification\utils.py
+      hash: md5
+      md5: d783442e4e8aaefd9eda412a38313b42
+      size: 2316
+    outs:
+    - path: artifacts\preprocessor.pkl
+      hash: md5
+      md5: 61bc08443b091b336e3d43705dce1e87
+      size: 3233
+    - path: artifacts\test_arr.npy
+      hash: md5
+      md5: 4a832ad57c5b16b01b57d1afc251cbcc
+      size: 10768
+    - path: artifacts\train_arr.npy
+      hash: md5
+      md5: 0f53cd57fe49bb162823789e1fe3dd5a
+      size: 42232
+  model_training:
+    cmd: python src\Disease_classification\components\model_tranier.py
+    deps:
+    - path: artifacts\test_arr.npy
+      hash: md5
+      md5: 4a832ad57c5b16b01b57d1afc251cbcc
+      size: 10768
+    - path: artifacts\train_arr.npy
+      hash: md5
+      md5: 0f53cd57fe49bb162823789e1fe3dd5a
+      size: 42232
+    - path: src\Disease_classification\exception.py
+      hash: md5
+      md5: 07061779f97913bda5296388b6cabb7e
+      size: 665
+    - path: src\Disease_classification\logger.py
+      hash: md5
+      md5: 0256c3a5a42db61cb899da51cddddf1f
+      size: 422
+    - path: src\Disease_classification\utils.py
+      hash: md5
+      md5: d783442e4e8aaefd9eda412a38313b42
+      size: 2316
+    outs:
+    - path: artifacts\model.pkl
+      hash: md5
+      md5: c17317a75d2e59f2dcaf23b074a47455
+      size: 1255383
