@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import uvicorn
 import pandas as pd
@@ -6,17 +8,28 @@ import joblib
 import sys
 from sklearn.pipeline import Pipeline
 from src.Disease_classification.exception import CustomException
-from base import PredictionDataset
-
-# Assuming load_obj is defined elsewhere in src.Disease_classification.utils
 from src.Disease_classification.utils import load_obj
 
 app = FastAPI()
 
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+class PredictionDataset(BaseModel):
+    Disease: str
+    Fever: str
+    Cough: str
+    Fatigue: str
+    Difficulty_Breathing: str
+    Age: int
+    Gender: str
+    Blood_Pressure: str
+    Cholesterol_Level: str
+
 # Load pre-trained objects
 Disease_label = joblib.load('artifacts\Dise.jobllib')
-preprocessor_obj = load_obj('artifacts\preprocessor.pkl')
-mulla = load_obj('artifacts\model.pkl')
+preprocessor_obj = load_obj('artifacts/preprocessor.pkl')
+mulla = load_obj('artifacts/model.pkl')
 
 # Define the model pipeline
 model_pipe = Pipeline(steps=[
@@ -24,12 +37,14 @@ model_pipe = Pipeline(steps=[
     ("model", mulla)
 ])
 
-# Pydantic model for prediction input
-
-
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def home():
     return "Welcome to my web page:::###"
+
+@app.get("/pred", response_class=HTMLResponse)
+async def get_prediction_page(request: Request):
+    with open("static/index.html") as f:
+        return HTMLResponse(content=f.read(), status_code=200)
 
 @app.post("/pred")
 def do_pred(test_data: PredictionDataset):
@@ -48,23 +63,4 @@ def do_pred(test_data: PredictionDataset):
         raise CustomException(e, sys)
 
 if __name__ == "__main__":
-    test_data = PredictionDataset(
-        Disease="Eczema",
-        Fever="No",
-        Cough="Yes",
-        Fatigue="Yes",
-        Difficulty_Breathing="No",
-        Age=25,
-        Gender="Female",
-        Blood_Pressure="Normal",
-        Cholesterol_Level="Normal"
-    )
-    
-    try:
-        # Test the function
-        result = do_pred(test_data)
-        print(result)
-    except CustomException as e:
-        print(e)
-    
-    uvicorn.run(app, port=8000)
+    uvicorn.run(app,port=8000)

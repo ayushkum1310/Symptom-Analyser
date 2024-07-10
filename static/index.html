@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Disease Prediction</h2>
+        <form id="prediction-form">
+            <div class="form-group">
+                <label for="Disease">Disease:</label>
+                <!-- <input type="text" id="Disease" name="Disease" required> -->
+                <select id="Disease" name="Disease" required>
+                    <!-- List of diseases -->
+                    <option value="Influenza">Influenza</option>
+                    <option value="Common Cold">Common Cold</option>
+                    <option value="Eczema">Eczema</option>
+                    <option value="Asthma">Asthma</option>
+                    <option value="Hyperthyroidism">Hyperthyroidism</option>
+                    <option value="Allergic Rhinitis">Allergic Rhinitis</option>
+                    <option value="Anxiety Disorders">Anxiety Disorders</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Gastroenteritis">Gastroenteritis</option>
+                    <option value="Pancreatitis">Pancreatitis</option>
+                    <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>
+                    <option value="Depression">Depression</option>
+                    <option value="Liver Cancer">Liver Cancer</option>
+                    <option value="Stroke">Stroke</option>
+                    <option value="Urinary Tract Infection">Urinary Tract Infection</option>
+                    <option value="Dengue Fever">Dengue Fever</option>
+                    <option value="Hepatitis">Hepatitis</option>
+                    <option value="Kidney Cancer">Kidney Cancer</option>
+                    <option value="Migraine">Migraine</option>
+                    <option value="Muscular Dystrophy">Muscular Dystrophy</option>
+                    <option value="Sinusitis">Sinusitis</option>
+                    <option value="Ulcerative Colitis">Ulcerative Colitis</option>
+                    <option value="Bipolar Disorder">Bipolar Disorder</option>
+                    <option value="Bronchitis">Bronchitis</option>
+                    <option value="Cerebral Palsy">Cerebral Palsy</option>
+                    <option value="Colorectal Cancer">Colorectal Cancer</option>
+                    <option value="Hypertensive Heart Disease">Hypertensive Heart Disease</option>
+                    <option value="Multiple Sclerosis">Multiple Sclerosis</option>
+                    <option value="Myocardial Infarction (Heart Attack)">Myocardial Infarction (Heart Attack)</option>
+                    <option value="Urinary Tract Infection (UTI)">Urinary Tract Infection (UTI)</option>
+                    <option value="Osteoporosis">Osteoporosis</option>
+                    <option value="Pneumonia">Pneumonia</option>
+                    <option value="Atherosclerosis">Atherosclerosis</option>
+                    <option value="Chronic Obstructive Pulmonary Disease (COPD)">Chronic Obstructive Pulmonary Disease (COPD)</option>
+                    <option value="Epilepsy">Epilepsy</option>
+                    <option value="Hypertension">Hypertension</option>
+                    <option value="Obsessive-Compulsive Disorder (OCD)">Obsessive-Compulsive Disorder (OCD)</option>
+                    <option value="Psoriasis">Psoriasis</option>
+                    <option value="Rubella">Rubella</option>
+                    <option value="Cirrhosis">Cirrhosis</option>
+                    <option value="Conjunctivitis (Pink Eye)">Conjunctivitis (Pink Eye)</option>
+                    <option value="Liver Disease">Liver Disease</option>
+                    <option value="Malaria">Malaria</option>
+                    <option value="Spina Bifida">Spina Bifida</option>
+                    <option value="Kidney Disease">Kidney Disease</option>
+                    <option value="Osteoarthritis">Osteoarthritis</option>
+                    <option value="Klinefelter Syndrome">Klinefelter Syndrome</option>
+                    <option value="Acne">Acne</option>
+                    <option value="Brain Tumor">Brain Tumor</option>
+                    <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+                    <option value="Glaucoma">Glaucoma</option>
+                    <option value="Rabies">Rabies</option>
+                    <option value="Chickenpox">Chickenpox</option>
+                    <option value="Coronary Artery Disease">Coronary Artery Disease</option>
+                    <option value="Eating Disorders (Anorexia, Bulimia)">Eating Disorders (Anorexia, Bulimia)</option>
+                    <option value="Fibromyalgia">Fibromyalgia</option>
+                    <option value="Hemophilia">Hemophilia</option>
+                    <option value="Hypoglycemia">Hypoglycemia</option>
+                    <option value="Lymphoma">Lymphoma</option>
+                    <option value="Tuberculosis">Tuberculosis</option>
+                    <option value="Lung Cancer">Lung Cancer</option>
+                    <option value="Hypothyroidism">Hypothyroidism</option>
+                    <option value="Autism Spectrum Disorder (ASD)">Autism Spectrum Disorder (ASD)</option>
+                    <option value="Crohn's Disease">Crohn's Disease</option>
+                    <option value="Hyperglycemia">Hyperglycemia</option>
+                    <option value="Melanoma">Melanoma</option>
+                    <option value="Ovarian Cancer">Ovarian Cancer</option>
+                    <option value="Turner Syndrome">Turner Syndrome</option>
+                    <option value="Zika Virus">Zika Virus</option>
+                    <option value="Cataracts">Cataracts</option>
+                    <option value="Pneumocystis Pneumonia (PCP)">Pneumocystis Pneumonia (PCP)</option>
+                    <option value="Scoliosis">Scoliosis</option>
+                    <option value="Sickle Cell Anemia">Sickle Cell Anemia</option>
+                    <option value="Tetanus">Tetanus</option>
+                    <option value="Anemia">Anemia</option>
+                    <option value="Cholera">Cholera</option>
+                    <option value="Endometriosis">Endometriosis</option>
+                    <option value="Sepsis">Sepsis</option>
+                    <option value="Sleep Apnea">Sleep Apnea</option>
+                    <option value="Down Syndrome">Down Syndrome</option>
+                    <option value="Ebola Virus">Ebola Virus</option>
+                    <option value="Lyme Disease">Lyme Disease</option>
+                    <option value="Pancreatic Cancer">Pancreatic Cancer</option>
+                    <option value="Pneumothorax">Pneumothorax</option>
+                    <option value="Appendicitis">Appendicitis</option>
+                    <option value="Esophageal Cancer">Esophageal Cancer</option>
+                    <option value="HIV/AIDS">HIV/AIDS</option>
+                    <option value="Marfan Syndrome">Marfan Syndrome</option>
+                    <option value="Parkinson's Disease">Parkinson's Disease</option>
+                    <option value="Hemorrhoids">Hemorrhoids</option>
+                    <option value="Polycystic Ovary Syndrome (PCOS)">Polycystic Ovary Syndrome (PCOS)</option>
+                    <option value="Systemic Lupus Erythematosus (Lupus)">Systemic Lupus Erythematosus (Lupus)</option>
+                    <option value="Typhoid Fever">Typhoid Fever</option>
+                    <option value="Breast Cancer">Breast Cancer</option>
+                    <option value="Measles">Measles</option>
+                    <option value="Osteomyelitis">Osteomyelitis</option>
+                    <option value="Polio">Polio</option>
+                    <option value="Chronic Kidney Disease">Chronic Kidney Disease</option>
+                    <option value="Hepatitis B">Hepatitis B</option>
+                    <option value="Prader-Willi Syndrome">Prader-Willi Syndrome</option>
+                    <option value="Thyroid Cancer">Thyroid Cancer</option>
+                    <option value="Bladder Cancer">Bladder Cancer</option>
+                    <option value="Otitis Media (Ear Infection)">Otitis Media (Ear Infection)</option>
+                    <option value="Tourette Syndrome">Tourette Syndrome</option>
+                    <option value="Alzheimer's Disease">Alzheimer's Disease</option>
+                    <option value="Chronic Obstructive Pulmonary Disease (COPD)">Chronic Obstructive Pulmonary Disease (COPD)</option>
+                    <option value="Dementia">Dementia</option>
+                    <option value="Diverticulitis">Diverticulitis</option>
+                    <option value="Mumps">Mumps</option>
+                    <option value="Cholecystitis">Cholecystitis</option>
+                    <option value="Prostate Cancer">Prostate Cancer</option>
+                    <option value="Schizophrenia">Schizophrenia</option>
+                    <option value="Gout">Gout</option>
+                    <option value="Williams Syndrome">Williams Syndrome</option>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="Fever">Fever:</label>
+                <select id="Fever" name="Fever" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Cough">Cough:</label>
+                <select id="Cough" name="Cough" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Fatigue">Fatigue:</label>
+                <select id="Fatigue" name="Fatigue" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Difficulty_Breathing">Difficulty Breathing:</label>
+                <select id="Difficulty_Breathing" name="Difficulty_Breathing" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Age">Age:</label>
+                <input type="number" id="Age" name="Age" required>
+            </div>
+            <div class="form-group">
+                <label for="Gender">Gender:</label>
+                <select id="Gender" name="Gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Blood_Pressure">Blood Pressure:</label>
+                <select id="Blood_Pressure" name="Blood_Pressure" required>
+                    <option value="Normal">Normal</option>
+                    <option value="Low">Low</option>
+                    <option value="High">High</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label for="Cholesterol_Level">Cholesterol Level:</label>
+                <select id="Cholesterol_Level" name="Cholesterol_Level" required>
+                    <option value="Normal">Normal</option>
+                    <option value="Low">Low</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/pred', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('result').innerText = result.Prediction;
+                } else {
+                    document.getElementById('result').innerText = 'Error in prediction';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'An error occurred';
+            }
+        });
+    </script>
+</body>
+</html>
