@@ -1,1 +1,1 @@
-# Disease Classification 
+# Symptom Analyser 
